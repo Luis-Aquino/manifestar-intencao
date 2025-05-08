@@ -5,6 +5,7 @@ import java.util.List;
 
 @Entity
 public class Nucleo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -12,8 +13,11 @@ public class Nucleo {
     private String nome;
 
     @OneToMany(mappedBy = "nucleo")
-    private List<Turma> turmas;
+    private List<Disciplina> disciplinas;
 
+    public Nucleo() {}
+
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -30,11 +34,11 @@ public class Nucleo {
         this.nome = nome;
     }
 
-    public List<Turma> getTurmas() {
-        return turmas;
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
     }
 
-    public void setTurmas(List<Turma> turmas) {
-        this.turmas = turmas;
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
 }

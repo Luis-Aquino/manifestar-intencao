@@ -4,17 +4,20 @@ import jakarta.persistence.*;
 
 @Entity
 public class Turma {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nomeDisciplina;
-    private int cargaHoraria;
+    private int ano;
+    private int semestre;
 
     @ManyToOne
-    @JoinColumn(name = "nucleo_id")
-    private Nucleo nucleo;
+    private Disciplina disciplina;
 
+    public Turma() {}
+
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -23,27 +26,27 @@ public class Turma {
         this.id = id;
     }
 
-    public String getNomeDisciplina() {
-        return nomeDisciplina;
+    public int getAno() {
+        return ano;
     }
 
-    public void setNomeDisciplina(String nomeDisciplina) {
-        this.nomeDisciplina = nomeDisciplina;
+    public void setAno(int ano) {
+        this.ano = ano;
     }
 
-    public int getCargaHoraria() {
-        return cargaHoraria;
+    public int getSemestre() {
+        return semestre;
     }
 
-    public void setCargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
     }
 
-    public Nucleo getNucleo() {
-        return nucleo;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setNucleo(Nucleo nucleo) {
-        this.nucleo = nucleo;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 }

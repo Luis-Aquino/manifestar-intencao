@@ -4,25 +4,27 @@ import jakarta.persistence.*;
 
 @Entity
 public class ManifestacaoInteresse {
-    @EmbeddedId
-    private ManifestacaoId id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @MapsId("docenteId")
     private Docente docente;
 
     @ManyToOne
-    @MapsId("turmaId")
     private Turma turma;
 
-    @Enumerated(EnumType.STRING)
-    private StatusManifestacao status = StatusManifestacao.PENDENTE;
+    private String turnoPreferido;
 
-    public ManifestacaoId getId() {
+    public ManifestacaoInteresse() {}
+
+    // Getters e Setters
+    public Long getId() {
         return id;
     }
 
-    public void setId(ManifestacaoId id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,11 +44,8 @@ public class ManifestacaoInteresse {
         this.turma = turma;
     }
 
-    public StatusManifestacao getStatus() {
-        return status;
+    public String getTurnoPreferido() {
+        return turnoPreferido;
     }
 
-    public void setStatus(StatusManifestacao status) {
-        this.status = status;
-    }
-}
+    public void setTurnoPreferido(String turnoPreferido) {
