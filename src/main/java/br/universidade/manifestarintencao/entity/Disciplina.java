@@ -1,4 +1,4 @@
-package br.universidade.manifestarintencao.entity;
+package br.universidade.manifestarintencao.disciplina;
 
 import jakarta.persistence.*;
 import java.util.List;
