@@ -1,49 +1,44 @@
 package br.universidade.manifestarintencao.controller;
 
-import br.universidade.manifestarintencao.entity.Docente;
-import br.universidade.manifestarintencao.entity.Turma;
 import br.universidade.manifestarintencao.entity.ManifestacaoInteresse;
-import br.universidade.manifestarintencao.repository.DocenteRepository;
-import br.universidade.manifestarintencao.repository.TurmaRepository;
-import br.universidade.manifestarintencao.repository.ManifestacaoInteresseRepository;
+import br.universidade.manifestarintencao.entity.StatusManifestacao;
+import br.universidade.manifestarintencao.service.ManifestacaoService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/manifestacoes")
 public class ManifestacaoController {
+    private final ManifestacaoService manifestacaoService;
 
-    private final ManifestacaoInteresseRepository manifestacaoRepo;
-    private final DocenteRepository docenteRepo;
-    private final TurmaRepository turmaRepo;
-
-    public ManifestacaoController(ManifestacaoInteresseRepository manifestacaoRepo,
-                                  DocenteRepository docenteRepo,
-                                  TurmaRepository turmaRepo) {
-        this.manifestacaoRepo = manifestacaoRepo;
-        this.docenteRepo = docenteRepo;
-        this.turmaRepo = turmaRepo;
+    public ManifestacaoController(ManifestacaoService manifestacaoService) {
+        this.manifestacaoService = manifestacaoService;
     }
 
     @PostMapping
-    public ManifestacaoInteresse manifestar(@RequestBody ManifestacaoInteresse m) {
-        if (m.getDocente() != null && m.getDocente().getId() != null) {
-            Optional<Docente> docente = docenteRepo.findById(m.getDocente().getId());
-            docente.ifPresent(m::setDocente);
-        }
-
-        if (m.getTurma() != null && m.getTurma().getId() != null) {
-            Optional<Turma> turma = turmaRepo.findById(m.getTurma().getId());
-            turma.ifPresent(m::setTurma);
-        }
-
-        return manifestacaoRepo.save(m);
+    public ResponseEntity<ManifestacaoInteresse> manifestar(@Valid @RequestBody ManifestacaoInteresse manifestacao) {
+        ManifestacaoInteresse saved = manifestacaoService.salvarManifestacao(manifestacao);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @GetMapping
-    public List<ManifestacaoInteresse> listar() {
-        return manifestacaoRepo.findAll();
+    public ResponseEntity<List<ManifestacaoInteresse>> listar() {
+        return ResponseEntity.ok(manifestacaoService.listarTodasManifestacoes());
+    }
+
+    @GetMapping("/docente/{docenteId}")
+    public ResponseEntity<List<ManifestacaoInteresse>> listarPorDocente(@PathVariable Long docenteId) {
+        return ResponseEntity.ok(manifestacaoService.listarPorDocente(docenteId));
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<ManifestacaoInteresse> atualizarStatus(
+            @PathVariable Long id,
+            @RequestParam StatusManifestacao status) {
+        return ResponseEntity.ok(manifestacaoService.atualizarStatus(id, status));
     }
 }
