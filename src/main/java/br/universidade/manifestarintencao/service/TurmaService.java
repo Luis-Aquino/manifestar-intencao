@@ -1,3 +1,13 @@
+package br.universidade.manifestarintencao.service;
+
+import br.universidade.manifestarintencao.entity.Disciplina;
+import br.universidade.manifestarintencao.entity.Turma;
+import br.universidade.manifestarintencao.repository.DisciplinaRepository;
+import br.universidade.manifestarintencao.repository.TurmaRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class TurmaService {
     private final TurmaRepository turmaRepository;
