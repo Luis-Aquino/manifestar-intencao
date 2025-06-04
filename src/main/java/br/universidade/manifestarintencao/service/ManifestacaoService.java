@@ -1,10 +1,16 @@
 package br.universidade.manifestarintencao.service;
 
+import br.universidade.manifestarintencao.entity.Docente;
 import br.universidade.manifestarintencao.entity.ManifestacaoInteresse;
+import br.universidade.manifestarintencao.entity.StatusManifestacao;
+import br.universidade.manifestarintencao.entity.Turma;
+import br.universidade.manifestarintencao.repository.DocenteRepository;
 import br.universidade.manifestarintencao.repository.ManifestacaoInteresseRepository;
+import br.universidade.manifestarintencao.repository.TurmaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class ManifestacaoService {
