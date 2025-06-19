@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/docentes")
+@CrossOrigin(origins = "http://localhost:4200")
 public class DocenteController {
     private final DocenteService docenteService;
 

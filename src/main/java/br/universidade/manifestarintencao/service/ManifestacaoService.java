@@ -52,7 +52,7 @@ public class ManifestacaoService {
 
         manifestacao.setDocente(docente);
         manifestacao.setTurma(turma);
-        manifestacao.setStatus(StatusManifestacao.PENDENTE);
+        //manifestacao.setStatus(StatusManifestacao.PENDENTE);
 
         return manifestacaoRepo.save(manifestacao);
     }
